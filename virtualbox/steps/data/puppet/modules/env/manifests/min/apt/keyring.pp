@@ -4,8 +4,15 @@ class env::min::apt::keyring {
   package {
     "${operatingsystem_downcase}-keyring":
       ensure => installed;
-    "${operatingsystem_downcase}-archive-keyring":
-      ensure => installed;
+  }
+  
+  case $operatingsystem {
+    'Ubuntu', 'Debian': {
+      package {
+        "debian-archive-keyring":
+          ensure => installed;
+      }
+    }
   }
 
 }
